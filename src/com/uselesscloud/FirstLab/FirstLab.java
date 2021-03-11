@@ -1,4 +1,4 @@
-package com.uselesscloud;
+package com.uselesscloud.FirstLab;
 
 import java.text.DateFormatSymbols;
 import java.util.*;
@@ -7,24 +7,22 @@ public class FirstLab {
 
     public static void makeCalendar(int dayOfWeek) {
         Calendar gregorianCalendar = new GregorianCalendar(TimeZone.getDefault());
-        Map<String, Integer> monthMap = gregorianCalendar.getDisplayNames(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+        Map<String, Integer> monthMap = gregorianCalendar.getDisplayNames(Calendar.MONTH, Calendar.LONG,
+                Locale.ENGLISH);
         LinkedHashMap<String, Integer> sortedMonthMap = new LinkedHashMap<>();
-        monthMap.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue())
+        monthMap.entrySet().stream().sorted(Map.Entry.comparingByValue())
                 .forEachOrdered(x -> sortedMonthMap.put(x.getKey(), x.getValue()));
 
         List<String> weekDays = Arrays.asList(DateFormatSymbols.getInstance().getShortWeekdays());
         Collections.rotate(weekDays, weekDays.size() - (dayOfWeek));
 
         for (Map.Entry<String, Integer> entry : sortedMonthMap.entrySet()) {
-            gregorianCalendar.set(gregorianCalendar.get(Calendar.YEAR),
-                    entry.getValue(), Calendar.DAY_OF_MONTH);
+            gregorianCalendar.set(gregorianCalendar.get(Calendar.YEAR), entry.getValue(), Calendar.DAY_OF_MONTH);
             int daysInMonth = gregorianCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-            System.out.printf("%s %s%n", entry.getKey(), gregorianCalendar.get(Calendar.YEAR));
+            System.out.printf(" %s %s%n", entry.getKey(), gregorianCalendar.get(Calendar.YEAR));
             for (String day : weekDays) {
                 if (day.length() > 0) {
-                    System.out.printf("%s ", day);
+                    System.out.printf(" %s ", day);
                 }
             }
             System.out.println();
